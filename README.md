@@ -1,6 +1,7 @@
-# Welcome to Remix!
+# @craftzing/remix-streaming
 
-- [Remix Docs](https://remix.run/docs)
+[![code-review](https://github.com/craftzing/remix-streaming/workflows/code-review/badge.svg)](https://github.com/craftzing/remix-streaming/actions/workflows/code-review.yml)
+[![release](https://github.com/craftzing/remix-streaming/workflows/release/badge.svg)](https://github.com/craftzing/remix-streaming/actions/workflows/release.yml)
 
 ## Development
 
