@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body {
+  @apply min-h-full h-full;
+  @apply bg-slate-50;
+}
+
+html {
+  @apply scroll-smooth;
+}
+
+body {
+  @apply flex flex-col flex-1;
+}
