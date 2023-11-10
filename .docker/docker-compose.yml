@@ -6,9 +6,15 @@ services:
     restart: unless-stopped
     mem_limit: 128mb
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.devcraftzingremixstreaming-http.rule=Host(`remix-streaming.craftzing.dev`)"
-      - "traefik.http.routers.devcraftzingremixstreaming-http.entrypoints=web"
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=reverse-proxy'
+      - 'traefik.http.middlewares.devcraftzingremixstreaming.redirectscheme.scheme=https'
+      - 'traefik.http.routers.devcraftzingremixstreaming-http.entrypoints=web'
+      - 'traefik.http.routers.devcraftzingremixstreaming-http.rule=Host(`remix-streaming.craftzing.dev`)'
+      - 'traefik.http.routers.devcraftzingremixstreaming-http.middlewares=devcraftzingremixstreaming'
+      - 'traefik.http.routers.devcraftzingremixstreaming-https.entrypoints=websecure'
+      - 'traefik.http.routers.devcraftzingremixstreaming-https.rule=Host(`remix-streaming.craftzing.dev`)'
+      - 'traefik.http.routers.devcraftzingremixstreaming-https.tls.certresolver=myhttpchallenge'
     networks:
       - reverse-proxy
 
