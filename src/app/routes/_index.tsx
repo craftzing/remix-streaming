@@ -1,5 +1,6 @@
 import { defer, type MetaFunction } from "@remix-run/node";
 import { Await, useLoaderData } from "@remix-run/react";
+import { sleep } from "radash";
 import { Suspense } from "react";
 
 export const meta: MetaFunction = () => {
@@ -14,7 +15,7 @@ export const loader = async () => {
     const data = Buffer.from(await response.arrayBuffer()).toString("base64");
 
     // make it artificially slow
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await sleep(2000);
 
     resolve(data);
   });
