@@ -32,8 +32,8 @@ export default function Index() {
           Remix Streaming Test
         </h1>
 
-        <div className="bg-white rounded-lg border p-1 mt-4 aspect-square flex items-center justify-center">
-          <Suspense fallback={<p>Loading {alt} image...</p>}>
+        <div className="bg-white rounded-lg border p-1 mt-4 aspect-square flex items-center justify-center w-96">
+          <Suspense fallback={<p className="text-slate-500">Loading {alt} image...</p>}>
             <Await resolve={image}>
               {(image) => <img alt={alt} src={`data:image/jpeg;base64,${image}`} className="object-cover rounded" />}
             </Await>
