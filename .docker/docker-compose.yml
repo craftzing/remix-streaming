@@ -1,0 +1,17 @@
+version: '2.1'
+
+services:
+  node:
+    image: ghcr.io/craftzing/remix-streaming
+    restart: unless-stopped
+    mem_limit: 128mb
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.devcraftzingremixstreaming-http.rule=Host(`remix-streaming.craftzing.dev`)"
+      - "traefik.http.routers.devcraftzingremixstreaming-http.entrypoints=web"
+    networks:
+      - reverse-proxy
+
+networks:
+  reverse-proxy:
+    external: true
