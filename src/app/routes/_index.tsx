@@ -9,14 +9,21 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = async () => {
-  return defer({
-    something: "else",
-    foo: new Promise((resolve) => setTimeout(() => resolve("bar"), 2000)),
+  const image = new Promise(async (resolve) => {
+    const response = await fetch("https://upload.wikimedia.org/wikipedia/commons/b/b6/TORTOR2.jpg")
+    const data = Buffer.from(await response.arrayBuffer()).toString("base64");
+
+    // make it artificially slow
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    resolve(data);
   });
+
+  return defer({ image, alt: 'Beeple' });
 }
 
 export default function Index() {
-  const { foo, something } = useLoaderData<typeof loader>();
+  const { image, alt } = useLoaderData<typeof loader>();
 
   return (
     <div className="flex-1 flex items-center justify-center p-6">
@@ -26,10 +33,9 @@ export default function Index() {
         </h1>
 
         <div className="bg-white rounded-lg border p-1 mt-4 aspect-square flex items-center justify-center w-96">
-          <p>something: {something}</p>
-          <Suspense fallback={<p className="text-slate-500">Loading foo...</p>}>
-            <Await resolve={foo}>
-              {(foo) => <p className="text-slate-500">Foo: {foo as string}</p>}
+          <Suspense fallback={<p className="text-slate-500">Loading {alt} image...</p>}>
+            <Await resolve={image}>
+              {(image) => <img alt={alt} src={`data:image/jpeg;base64,${image}`} className="object-cover rounded" />}
             </Await>
           </Suspense>
         </div>
