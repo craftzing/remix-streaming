@@ -19,13 +19,13 @@ export default function Index() {
   const { image } = useLoaderData<typeof loader>();
 
   return (
-    <div className="flex-1 flex items-center justify-center p-6">
-      <div className="p-8">
+    <div className="flex-1 flex items-center justify-center p-4">
+      <div>
         <h1 className="text-2xl font-semibold text-center">
           Deferred image
         </h1>
 
-        <div className="bg-white rounded-lg border p-1 mt-4 aspect-square flex items-center justify-center w-96">
+        <div className="bg-white rounded-lg border p-1 mt-4 aspect-square flex items-center justify-center w-80">
           <Suspense fallback={<p className="text-slate-500">Loading image...</p>}>
             <Await resolve={image}>
               {(image) => <img alt="base64 encoded visual" src={`data:image/jpeg;base64,${image}`} className="object-cover rounded" />}
