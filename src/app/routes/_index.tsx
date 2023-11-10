@@ -19,11 +19,11 @@ export const loader = async () => {
     resolve(data);
   });
 
-  return defer({ image });
+  return defer({ image, alt: 'Beeple' });
 }
 
 export default function Index() {
-  const { image } = useLoaderData<typeof loader>();
+  const { image, alt } = useLoaderData<typeof loader>();
 
   return (
     <div className="flex-1 flex items-center justify-center p-6">
@@ -33,9 +33,9 @@ export default function Index() {
         </h1>
 
         <div className="bg-white rounded-lg border p-1 mt-4 aspect-square flex items-center justify-center">
-          <Suspense fallback={<p>Loading...</p>}>
+          <Suspense fallback={<p>Loading {alt} image...</p>}>
             <Await resolve={image}>
-              {(image) => <img alt="Beeple" src={`data:image/jpeg;base64,${image}`} className="object-cover rounded" />}
+              {(image) => <img alt={alt} src={`data:image/jpeg;base64,${image}`} className="object-cover rounded" />}
             </Await>
           </Suspense>
         </div>
