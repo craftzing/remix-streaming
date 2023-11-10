@@ -1,10 +1,11 @@
 version: '2.1'
 
 services:
-  node:
-    image: ghcr.io/craftzing/remix-streaming
+  nginx:
+    container_name: dev.craftzing.remix-streaming-nginx
+    image: nginx:1.25-alpine
     restart: unless-stopped
-    mem_limit: 128mb
+    mem_limit: 32mb
     labels:
       - 'traefik.enable=true'
       - 'traefik.docker.network=reverse-proxy'
@@ -15,8 +16,17 @@ services:
       - 'traefik.http.routers.devcraftzingremixstreaming-https.entrypoints=websecure'
       - 'traefik.http.routers.devcraftzingremixstreaming-https.rule=Host(`remix-streaming.craftzing.dev`)'
       - 'traefik.http.routers.devcraftzingremixstreaming-https.tls.certresolver=myhttpchallenge'
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf:ro
     networks:
+      - default
       - reverse-proxy
+
+  node:
+    container_name: dev.craftzing.remix-streaming-node
+    image: ghcr.io/craftzing/remix-streaming
+    restart: unless-stopped
+    mem_limit: 128mb
 
 networks:
   reverse-proxy:

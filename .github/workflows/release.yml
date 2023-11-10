@@ -55,7 +55,7 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: .docker/docker-compose.yml
+          source: ".docker/docker-compose.yml,.docker/nginx/default.conf"
           target: ${{ secrets.DEPLOY_PATH }}
           overwrite: true
           strip_components: 1
